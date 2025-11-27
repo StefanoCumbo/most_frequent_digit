@@ -1,8 +1,8 @@
 """
 
 You are working with data collected from various sensors. Given an array of nonnegative integers readings representing the sensor readings,
- transform the array by repeatedly replacing each element with the sum of its digits. 
- Continue this transformation until every element is a single digit. Return the most occurring digit in the final array. 
+ transform the array by repeatedly replacing each element with the sum of its digits.
+ Continue this transformation until every element is a single digit. Return the most occurring digit in the final array.
  In case of a tie, return the highest digit.
 
 Note: You are not expected to provide the most optimal solution,
@@ -27,11 +27,29 @@ and further
 
 """
 
+
+from collections import defaultdict
 class Solution:
     def mostFrequentDigit(self, readings):
 
-    
+        freq = defaultdict(int)
+        for i in range(len(readings)):
+            digit = helper(readings[i])
+            freq[digit] += 1
 
+        answer = max(freq, key = lambda x:(freq[x], x))
+        return answer
+
+
+def helper(num):
+    while num>9:
+        arr = str(num)
+        x = 0
+        for c in arr:
+            x += int(c)
+        num = x
+
+    return num
 
 
 def test_solution():
@@ -63,7 +81,6 @@ def test_solution():
 
     print("✅ All tests passed!")
 
+
 if __name__ == "__main__":
     test_solution()
-
-
